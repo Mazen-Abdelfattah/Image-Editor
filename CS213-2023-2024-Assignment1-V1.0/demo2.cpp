@@ -214,22 +214,9 @@ void doSomethingForImage()
     }
     else if(choice==6)
     {
-        for (int i = 0, s = SIZE - 1; i < SIZE && s >= 0; i++, s--)
-        {
-            for (int j = 0, z = SIZE - 1; j < SIZE && z >= 0; j++, z--)
-            {
-                image2[i][j] = image[z][i];
-            }
-        }
-        for (int i = 0; i < SIZE; i++)
-        {
-            for (int j = 0; j < SIZE; j++)
-            {
-                image[i][j] = image2[i][j];
-            }
-        }
+        //null
     }
-    else if(choice==7)
+    else if(choice==7) //Still working on it
     {
         for (int i = 0, s = SIZE - 1; i < SIZE && s >= 0; i++, s--)
         {
