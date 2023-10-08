@@ -212,24 +212,51 @@ void doSomethingForImage()
             }
         }
     }
-    else if(choice==6)
-    {
+    else if(choice==6){
         //null
     }
-    else if(choice==7) //Still working on it
+    else if(choice==7)
     {
-        for (int i = 0, s = SIZE - 1; i < SIZE && s >= 0; i++, s--)
+        for (int i = 0; i < SIZE; i++)
         {
-            for (int j = 0, z = j + 1; j < SIZE && z < SIZE ; j++, z++)
+            for (int j = 0; j < SIZE; j++)
             {
-                if(image[i][j]==image[i][z])
+                image2[i][j] = image[i][j] ;
+            }
+        }
+        int avg = 0;
+        for (int i = 0; i < SIZE ; i++)
+        {
+            for (int j = 0; j < SIZE ; j++)
+            {
+                avg += image[i][j];
+            }
+        }
+        avg /= (256*256);
+        for (int i = 0; i < SIZE; i++)
+        {
+            for (int j = 0; j < SIZE; j++)
+            {
+                /*if ((image2[i][j]>average && image2[i][j+1]<=average) ||(image2[i][j]<=average && image2[i+1][j]>average) ||
+                 (image2[i][j]<=average && image2[i][j+1]>average)|| (image2[i][j]>average && image2[i][j+1]<=average) ||
+                 (image2[i][j]>average && image2[i+1][j+1]<=average) || (image2[i][j]<=average && image2[i+1][j+1]>average)
+                 )*/
+                if( (image2[i][j] > avg && image2[i][j+1] < avg ) || (image2[i][j] < avg && image2[i][j+1] > avg )
+                || (image2[i][j] > avg && image2[i-1][j] < avg) || (image2[i][j] < avg && image2[i-1][j] > avg)
+              //  || (image2[i][j] > avg && image2[i][j-1] < avg ) || (image2[i][j] < avg && image2[i][j-1] > avg )
+              //  || (image2[i][j] > avg && image2[i+1][j] < avg) || (image2[i][j] < avg && image2[i+1][j] > avg)
+              //  || (image2[i][j] > avg && image2[i][j-1] < avg) || (image2[i][j] < avg && image2[i][j-1] > avg)
+                || (image2[i][j] > avg && image2[i+1][j+1] < avg) || (image2[i][j] < avg && image2[i+1][j+1] > avg)
+             //   || (image2[i][j] > avg && image2[i+1][j-1] < avg) || (image2[i][j] < avg && image2[i+1][j-1] > avg)
+              //  || (image2[i][j] > avg && image2[i-1][j+1] < avg) || (image2[i][j] < avg && image2[i-1][j+1] > avg)
+             //   || (image2[i][j] > avg && image2[i-1][j-1] < avg) || (image2[i][j] < avg && image2[i-1][j-1] > avg)
+                )
                 {
                     image[i][j] = 0;
-                    j++;
                 }
                 else
                 {
-                    image[i][z] = 255;
+                    image[i][j] = 255;
                 }
             }
         }
