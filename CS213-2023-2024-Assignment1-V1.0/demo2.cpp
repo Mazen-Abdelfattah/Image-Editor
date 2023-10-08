@@ -248,7 +248,7 @@ void doSomethingForImage()
             }
         }
     }
-    else if(choice=='a')
+    else if(choice=='a') //Still working on it
     {
         char letter;
         cout<<"Mirror (l)eft , (r)ight , (u)pper or (d)own side ?"<<endl;
