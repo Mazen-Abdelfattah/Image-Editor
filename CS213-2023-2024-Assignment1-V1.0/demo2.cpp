@@ -90,7 +90,7 @@ void doSomethingForImage()
             }
         }
     }
-    else if(choice=='2') 
+    else if(choice=='2')
     {
         for (int i = 0; i < SIZE; i++)
         {
@@ -248,7 +248,7 @@ void doSomethingForImage()
             }
         }
     }
-    else if(choice=='a') //Still working on it
+    else if(choice=='a')
     {
         char letter;
         cout<<"Mirror (l)eft , (r)ight , (u)pper or (d)own side ?"<<endl;
