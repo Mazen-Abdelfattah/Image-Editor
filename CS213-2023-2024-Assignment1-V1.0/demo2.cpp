@@ -1,10 +1,11 @@
+//FCAI - OOP programing - 2023 - Assignment 1
 // Program: demo2.cpp
+// Author1 and ID : Mazen Abdelfattah -------------
+// Author2 and ID : Malak Khattab
+// Author3 and ID : Jihad
 // Purpose: Demonstrate use of bmplip for handling
 //          bmp colored and grayscale images
 //          Program load a gray image and store in another file
-// Author:  Mohammad El-Ramly
-// Date:    30 March 2018
-// Version: 1.0
 
 #include <iostream>
 #include <fstream>
@@ -69,12 +70,11 @@ void doSomethingForImage()
     cout<<"8-Enlarge Image"<<endl;
     cout<<"9-Shrink Image"<<endl;
     cout<<"a-Mirror 1/2 Image"<<endl;
- /*   cout<<"b-Shuffle Image"<<endl;
+    cout<<"b-Shuffle Image"<<endl;
     cout<<"c-Blur Image"<<endl;
     cout<<"d-Crop Image"<<endl;
     cout<<"e-Skew Image Right"<<endl;
     cout<<"f-Skew Image Up"<<endl;
-    cout<<"s-Save the image to a file"<<endl;*/
     cout<<"0-Exit"<<endl;
     cin>>choice;
     if(choice=='1')
@@ -83,12 +83,15 @@ void doSomethingForImage()
         {
             for (int j = 0; j< SIZE; j++)
             {
-                if (image[i][j] > 127)
+                if (image[i][j] > 127) //More than Average Gray level,So it's White
                     image[i][j] = 255;
                 else
-                    image[i][j] = 0;
+                    image[i][j] = 0; //Less than Average Gray level,So it's Black
             }
         }
+        //The gray level is 127 (255/2)
+        //White 255
+        //Black 0
     }
     else if(choice=='2')
     {
@@ -126,6 +129,8 @@ void doSomethingForImage()
         cin>>letter;
         if(letter=='h')
         {
+            /*To flip horizontally we must copy every pixel in the very right to the left
+              Without affecting the photo So we will do this in a new array named after image2 */
             for (int i = 0; i < SIZE; i++)
             {
                 for (int j = 0,z=SIZE-1 ; j < SIZE && z >= 0 ; j++, z--)
@@ -137,12 +142,14 @@ void doSomethingForImage()
             {
                 for (int j = 0; j < SIZE; j++)
                 {
-                    image[i][j] = image2[i][j] ;
+                    image[i][j] = image2[i][j] ; //We will equalize them because it's the output
                 }
             }
         }
         else if(letter=='v')
         {
+            /*To flip vertically we must copy every pixel in the very down to the up
+              Without affecting the photo So we will do this in a new array named after image2 */
             for (int i = 0,s=SIZE-1 ; i < SIZE && s >= 0 ; i++, s--)
             {
                 for (int j = 0; j < SIZE ; j++)
@@ -154,7 +161,7 @@ void doSomethingForImage()
             {
                 for (int j = 0; j < SIZE; j++)
                 {
-                    image[i][j] = image2[i][j] ;
+                    image[i][j] = image2[i][j] ; //We will equalize them because it's the output
                 }
             }
         }
@@ -212,6 +219,7 @@ void doSomethingForImage()
             }
         }
     }
+    else if(choice=='6'){}
     else if(choice=='7')
     {
         for (int i = 0; i < SIZE; i++)
@@ -248,7 +256,9 @@ void doSomethingForImage()
             }
         }
     }
-    else if(choice=='a') //Still working on it
+    else if(choice=='8'){}
+    else if(choice=='9'){}
+    else if(choice=='a')
     {
         char letter;
         cout<<"Mirror (l)eft , (r)ight , (u)pper or (d)own side ?"<<endl;
@@ -264,13 +274,86 @@ void doSomethingForImage()
             }
             for (int i = 0; i < SIZE ; i++ )
             {
-                for (int j = 0, z = SIZE - 1; j < SIZE && z >= (j/2)+1 ; j++, z--)
+                for (int j = 0, z = SIZE - 1; j < z ; j++, z--)
                 {
                     image[i][z]=image2[i][j];
                 }
             }
         }
+        else if(letter=='r')
+        {
+            for (int i = 0; i < SIZE ; i++)
+            {
+                for (int j = 0; j < SIZE ; j++)
+                {
+                    image2[i][j] = image[i][j];
+                }
+            }
+            for (int i = 0; i < SIZE ; i++ )
+            {
+                for (int j = SIZE - 1, z = 0 ; j > z ; j--, z++)
+                {
+                    image[i][z]=image2[i][j];
+                }
+            }
+        }
+        else if(letter=='u')
+        {
+            for (int i = 0; i < SIZE ; i++)
+            {
+                for (int j = 0; j < SIZE ; j++)
+                {
+                    image2[i][j] = image[i][j];
+                }
+            }
+            for (int i = 0 , z = SIZE - 1 ; i < z ; i++ ,z-- )
+            {
+                for (int j = 0 ; j < SIZE ; j++ )
+                {
+                    image[z][j]=image2[i][j];
+                }
+            }
+        }
+        else if(letter=='d')
+        {
+            for (int i = 0; i < SIZE ; i++)
+            {
+                for (int j = 0; j < SIZE ; j++)
+                {
+                    image2[i][j] = image[i][j];
+                }
+            }
+            for (int i = SIZE - 1 , z = 0 ; i >z  ; i-- ,z++)
+            {
+                for (int j = 0 ; j < SIZE ; j++ )
+                {
+                    image[z][j]=image2[i][j];
+                }
+            }
+        }
+    }
+    else if(choice=='b'){}
+    else if(choice=='c'){}
+    else if(choice=='d')
+    {
+        int x,y,l,w;
+        cout<<"Please enter x : ";
+        cin>>x;
+        cout<<"Please enter y : ";
+        cin>>y;
+        cout<<"Please enter Length : ";
+        cin>>l;
+        cout<<"Please enter Width : ";
+        cin>>w;
+
+
     }
 
+    else if(choice=='e'){}
+    else if(choice=='f'){}
+    else
+    {
+        return ;
+    }
 
 }
