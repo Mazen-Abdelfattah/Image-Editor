@@ -1,7 +1,7 @@
 //FCAI - OOP programing - 2023 - Assignment 1
 // Program: demo2.cpp
 // Author1 and ID : Mazen Abdelfattah -------------
-// Author2 and ID : Malak Khattab
+// Author2 and ID : Malak Mohamed Khattab/20210403
 // Author3 and ID : Jihad
 // Purpose: Demonstrate use of bmplip for handling
 //          bmp colored and grayscale images
@@ -219,7 +219,9 @@ void doSomethingForImage()
             }
         }
     }
-    else if(choice=='6'){}
+    else if(choice=='6'){
+      
+    }
     else if(choice=='7')
     {
         for (int i = 0; i < SIZE; i++)
