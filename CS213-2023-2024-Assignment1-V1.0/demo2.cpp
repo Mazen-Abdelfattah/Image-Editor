@@ -220,7 +220,49 @@ void doSomethingForImage()
         }
     }
     else if(choice=='6'){
-      
+          int check;
+        cout << "do u want darken-->1 or lighten-->2:";
+        cin >> check;
+        switch (check) {
+            case 1: {
+                for (int i = 0; i < SIZE; i++) {
+                    for (int j = 0; j < SIZE; j++) {
+                        image2[i][j] = image[i][j];
+                    }
+                }
+                for (int i = 0; i < SIZE; i++) {
+                    for (int j = 0; j < SIZE; j++) {
+                        if (image2[i][j] <= 60) {
+                            image[i][j] = image2[i][j];
+                        } else {
+                            image[i][j] = image2[i][j] - 60;
+                        }
+                    }
+                }
+                break;
+            }
+
+
+            case 2: {
+                for (int i = 0; i < SIZE; i++) {
+                    for (int j = 0; j < SIZE; j++) {
+                        image2[i][j] = image[i][j];
+                    }
+                }
+                for (int i = 0; i < SIZE; i++) {
+                    for (int j = 0; j < SIZE; j++) {
+                        if (image2[i][j] >= 195) {
+                            image[i][j] = image2[i][j];
+                        }
+                        else {
+                            image[i][j] = image2[i][j] + 60;
+                        }
+                    }
+                }
+                break;
+            }
+
+        }
     }
     else if(choice=='7')
     {
