@@ -1,6 +1,6 @@
 //FCAI - OOP programing - 2023 - Assignment 1
 // Program: demo2.cpp
-// Author1 and ID : Mazen Abdelfattah -------------
+// Author1 and ID : Mazen Abdelfattah /20230607
 // Author2 and ID : Malak Mohamed Khattab/20210403
 // Author3 and ID : Gehad Shaban  Ragab/20220535
 // Purpose: Demonstrate use of bmplip for handling
@@ -59,23 +59,13 @@ void saveImage () {
 void doSomethingForImage()
 {
     char choice;
-    cout<<"Please select a filter to apply or 0 to exit"<<endl;
+    cout<<"Please select a filter to apply :"<<endl;
     cout<<"1-Black & White Filter"<<endl;
     cout<<"2-Invert Filter"<<endl;
     cout<<"3-Merge Filter"<<endl;
     cout<<"4-Flip Image"<<endl;
     cout<<"5-Rotate Image"<<endl;
     cout<<"6-Darken and Lighten Image"<<endl;
-    cout<<"7-Detect Image Edges"<<endl;
-    cout<<"8-Enlarge Image"<<endl;
-    cout<<"9-Shrink Image"<<endl;
-    cout<<"a-Mirror 1/2 Image"<<endl;
-    cout<<"b-Shuffle Image"<<endl;
-    cout<<"c-Blur Image"<<endl;
-    cout<<"d-Crop Image"<<endl;
-    cout<<"e-Skew Image Right"<<endl;
-    cout<<"f-Skew Image Up"<<endl;
-    cout<<"0-Exit"<<endl;
     cin>>choice;
     if(choice=='1')
     {
@@ -264,140 +254,4 @@ void doSomethingForImage()
 
         }
     }
-    else if(choice=='7')
-    {
-        for (int i = 0; i < SIZE; i++)
-        {
-            for (int j = 0; j < SIZE; j++)
-            {
-                image2[i][j] = image[i][j] ;
-            }
-        }
-        int avg = 0;
-        for (int i = 0; i < SIZE ; i++)
-        {
-            for (int j = 0; j < SIZE ; j++)
-            {
-                avg += image[i][j];
-            }
-        }
-        avg /= (256*256);
-        for (int i = 0; i < SIZE; i++)
-        {
-            for (int j = 0; j < SIZE; j++)
-            {
-
-                if( (image2[i][j] > avg && image2[i][j+1] < avg ) || (image2[i][j] < avg && image2[i][j+1] > avg )
-                || (image2[i][j] > avg && image2[i-1][j] < avg) || (image2[i][j] < avg && image2[i-1][j] > avg)
-                || (image2[i][j] > avg && image2[i+1][j+1] < avg) || (image2[i][j] < avg && image2[i+1][j+1] > avg) )
-                {
-                    image[i][j] = 0;
-                }
-                else
-                {
-                    image[i][j] = 255;
-                }
-            }
-        }
-    }
-    else if(choice=='8'){}
-    else if(choice=='9'){}
-    else if(choice=='a')
-    {
-        char letter;
-        cout<<"Mirror (l)eft , (r)ight , (u)pper or (d)own side ?"<<endl;
-        cin>>letter;
-        if(letter=='l')
-        {
-            for (int i = 0; i < SIZE ; i++)
-            {
-                for (int j = 0; j < SIZE ; j++)
-                {
-                    image2[i][j] = image[i][j];
-                }
-            }
-            for (int i = 0; i < SIZE ; i++ )
-            {
-                for (int j = 0, z = SIZE - 1; j < z ; j++, z--)
-                {
-                    image[i][z]=image2[i][j];
-                }
-            }
-        }
-        else if(letter=='r')
-        {
-            for (int i = 0; i < SIZE ; i++)
-            {
-                for (int j = 0; j < SIZE ; j++)
-                {
-                    image2[i][j] = image[i][j];
-                }
-            }
-            for (int i = 0; i < SIZE ; i++ )
-            {
-                for (int j = SIZE - 1, z = 0 ; j > z ; j--, z++)
-                {
-                    image[i][z]=image2[i][j];
-                }
-            }
-        }
-        else if(letter=='u')
-        {
-            for (int i = 0; i < SIZE ; i++)
-            {
-                for (int j = 0; j < SIZE ; j++)
-                {
-                    image2[i][j] = image[i][j];
-                }
-            }
-            for (int i = 0 , z = SIZE - 1 ; i < z ; i++ ,z-- )
-            {
-                for (int j = 0 ; j < SIZE ; j++ )
-                {
-                    image[z][j]=image2[i][j];
-                }
-            }
-        }
-        else if(letter=='d')
-        {
-            for (int i = 0; i < SIZE ; i++)
-            {
-                for (int j = 0; j < SIZE ; j++)
-                {
-                    image2[i][j] = image[i][j];
-                }
-            }
-            for (int i = SIZE - 1 , z = 0 ; i >z  ; i-- ,z++)
-            {
-                for (int j = 0 ; j < SIZE ; j++ )
-                {
-                    image[z][j]=image2[i][j];
-                }
-            }
-        }
-    }
-    else if(choice=='b'){}
-    else if(choice=='c'){}
-    else if(choice=='d')
-    {
-        int x,y,l,w;
-        cout<<"Please enter x : ";
-        cin>>x;
-        cout<<"Please enter y : ";
-        cin>>y;
-        cout<<"Please enter Length : ";
-        cin>>l;
-        cout<<"Please enter Width : ";
-        cin>>w;
-
-
-    }
-
-    else if(choice=='e'){}
-    else if(choice=='f'){}
-    else
-    {
-        return ;
-    }
-
 }
