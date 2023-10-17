@@ -11,9 +11,9 @@
 #include<cstring>
 #include"bmplib.h"
 #include"bmplib.cpp"
+#include<cmath>
 
 using namespace std;
-
 
 unsigned char image[SIZE][SIZE];
 unsigned char image2[SIZE][SIZE];
@@ -34,6 +34,8 @@ void mirror();
 void shuffle();
 void blur();
 void crop();
+void skewRight();
+void skewUp();
 
 int main()
 {
@@ -94,8 +96,10 @@ void menu() {
     cout << "shrink              ||                        9" << endl;
     cout << "mirror              ||                        a" << endl;
     cout << "shuffle             ||                        b" << endl;
-    cout << "blur                ||                        c" << endl;
+ //   cout << "blur              ||                        c" << endl;
     cout << "crop                ||                        d" << endl;
+    cout << "skewRight           ||                        e" << endl;
+    cout << "skewUP              ||                        f" << endl;
     cout << "exit                ||                        x" << endl;
     cout << "---------------------------------------------------------" << endl;
     cout << "Enter the Number:";
@@ -142,11 +146,11 @@ void menu() {
             enlarge();
             saving_image();
             break;
-            /*case '9':
-                loadImage();
-                shrink();
-                saving_image();
-                break;*/
+        case '9':
+            loadImage();
+            shrink();
+            saving_image();
+            break;
         case 'a':
             loadImage();
             mirror();
@@ -165,6 +169,14 @@ void menu() {
         case 'd':
             loadImage();
             crop();
+            saving_image();
+     /*   case 'e':
+            loadImage();
+            crop();
+            saving_image(); */
+        case 'f':
+            loadImage();
+            skewUp();
             saving_image();
         case 'x':
             exit(0);
@@ -439,9 +451,28 @@ void enlarge() {
     }
 }
 
-/*void shrink() {
-
-}*/
+void shrink() {
+    int factor;
+    cout<<"In which quarter do you want the image ?\n";
+    cin>>factor;
+    int newSize = SIZE / factor;
+    for (int i = 0; i < newSize; ++i) {
+        for (int j = 0; j < newSize; ++j) {
+            int sum = 0;
+            for (int k = 0; k < factor; ++k) {
+                for (int l = 0; l < factor; ++l) {
+                    sum += image2[i * factor + k][j * factor + l];
+                }
+            }
+            image2[i][j] = sum / (factor * factor);
+        }
+    }
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            image[i][j] = image2[i][j];
+        }
+    }
+}
 
 void mirror() {
     char letter;
@@ -680,4 +711,37 @@ void crop(){
             }
         }
     }
+}
+
+/*void skewRight(){
+} */
+
+void skewUp(){
+    float angle;
+    float tanAngle = tan(angle);
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            float sourceX = j - SIZE / 2;
+            float sourceY = i - SIZE / 2;
+
+            float targetX = sourceX + sourceY * tanAngle;
+            float targetY = sourceY;
+
+            int sourceCol = round(targetX + SIZE / 2);
+            int sourceRow = round(targetY + SIZE / 2);
+
+            if (sourceRow >= 0 && sourceRow < SIZE && sourceCol >= 0 && sourceCol < SIZE) {
+                image2[i][j] = image[sourceRow][sourceCol];
+            } else {
+                image2[i][j] = ' ';
+            }
+        }
+    }
+
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            image[i][j] = image2[i][j];
+        }
+    }
+
 }
