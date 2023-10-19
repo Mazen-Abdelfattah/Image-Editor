@@ -1,7 +1,7 @@
 //FCAI - OOP programing - 2023 - Assignment 1
 // Program: demo2.cpp
 // Author1 and ID : Mazen Abdelfattah - 20230607     //I was having no ID ,so I act like the Smallest ID(as the professor said)
-// Author2 and ID : Malak Khattab - 20210403         //middle ID   
+// Author2 and ID : Malak Khattab - 20210403         //middle ID
 // Author3 and ID : Gehad Shaban - 20220535          //biggest ID
 // Purpose: Demonstrate use of bmplip for handling
 //          bmp colored and grayscale images
@@ -17,6 +17,7 @@ using namespace std;
 
 unsigned char image[SIZE][SIZE];
 unsigned char image2[SIZE][SIZE];
+unsigned char image3[SIZE][SIZE];
 
 void menu();
 void loadImage();
@@ -34,8 +35,8 @@ void mirror();
 void shuffle();
 void blur();
 void crop();
-void skewRight();
-void skewUp();
+void skewHorizontally();
+void skewVertically();
 
 int main()
 {
@@ -96,10 +97,10 @@ void menu() {
     cout << "shrink              ||                        9" << endl;
     cout << "mirror              ||                        a" << endl;
     cout << "shuffle             ||                        b" << endl;
- //   cout << "blur              ||                        c" << endl;
+    cout << "blur                ||                        c" << endl;
     cout << "crop                ||                        d" << endl;
-    cout << "skewRight           ||                        e" << endl;
-    cout << "skewUP              ||                        f" << endl;
+    cout << "skewHorizontally    ||                        e" << endl;
+    cout << "skewVertically      ||                        f" << endl;
     cout << "exit                ||                        x" << endl;
     cout << "---------------------------------------------------------" << endl;
     cout << "Enter the Number:";
@@ -161,22 +162,22 @@ void menu() {
             shuffle();
             saving_image();
             break;
-            /*case 'c':
-                loadImage();
-                blur();
-                saving_image();
-                break;*/
+        case 'c':
+            loadImage();
+            blur();
+            saving_image();
+            break;
         case 'd':
             loadImage();
             crop();
             saving_image();
-     /*   case 'e':
+        case 'e':
             loadImage();
-            crop();
-            saving_image(); */
+            skewHorizontally();
+            saving_image();
         case 'f':
             loadImage();
-            skewUp();
+            skewVertically();
             saving_image();
         case 'x':
             exit(0);
@@ -452,26 +453,47 @@ void enlarge() {
 }
 
 void shrink() {
-    int factor;
-    cout<<"In which quarter do you want the image ?\n";
-    cin>>factor;
-    int newSize = SIZE / factor;
-    for (int i = 0; i < newSize; ++i) {
-        for (int j = 0; j < newSize; ++j) {
-            int sum = 0;
-            for (int k = 0; k < factor; ++k) {
-                for (int l = 0; l < factor; ++l) {
-                    sum += image2[i * factor + k][j * factor + l];
-                }
+    int choice;
+    cout << "for 1/4 ->1\nfor 1/3 ->2\nfor 1/2 ->3\nenter:";
+    cin >> choice;
+    if (choice == 1) {
+        for (int i = 0; i < SIZE; i += 2)
+        {
+            for (int j = 0; j < SIZE; j += 2)
+            {
+                image2[i / 2][j / 2] = image[i][j];
             }
-            image2[i][j] = sum / (factor * factor);
+
+        }
+
+    }
+    else if (choice == 2)
+    {
+        for (int i = 0; i < SIZE; i += 3)
+        {
+            for (int j = 0; j < SIZE; j += 3)
+            {
+                image2[i / 3][j / 3] = image[i][j];
+            }
         }
     }
+    else if (choice == 3)
+    {
+        for (int i = 0; i < SIZE; i += 4)
+        {
+            for (int j = 0; j < SIZE; j += 4)
+            {
+                image2[i / 4][j / 4] = image[i][j];
+            }
+        }
+    }
+
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
             image[i][j] = image2[i][j];
         }
     }
+
 }
 
 void mirror() {
@@ -684,9 +706,20 @@ void shuffle() {
     }
 }
 
-/*void blur() {
+void blur() {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            image2[i + 1][j + 1] = (image[i][j] + image[i][j + 1] + image[i][j + 2] + image[i + 1][j] + image[i + 1][j + 1] + image[i + 1][j + 2] + image[i + 2][j] + image[i + 2][j + 1] + image[i + 2][j + 2]) / 9;
+        }
+    }
+    for(int i=0;i<SIZE;i++)
+    {
+        for(int j=0;j<SIZE;j++){
+            image[i][j]=image2[i][j];
+        }
+    }
+}
 
-}*/
 void crop(){
     int x,y,l,w;
     cout<<"Please enter x : ";
@@ -713,35 +746,112 @@ void crop(){
     }
 }
 
-/*void skewRight(){
-} */
+void skewHorizontally(){//Skew right
 
-void skewUp(){
-    float angle;
-    float tanAngle = tan(angle);
-    for (int i = 0; i < SIZE; ++i) {
-        for (int j = 0; j < SIZE; ++j) {
-            float sourceX = j - SIZE / 2;
-            float sourceY = i - SIZE / 2;
+    double rad,move,step;
+    int x;
+    cout<<"Please enter the angle :";
+    cin>>rad;
+    rad=(rad*22)/(180/7);
+    x=256/(1+(1/tan(rad)));
+    step=256-x;
+    move=step/256;
 
-            float targetX = sourceX + sourceY * tanAngle;
-            float targetY = sourceY;
-
-            int sourceCol = round(targetX + SIZE / 2);
-            int sourceRow = round(targetY + SIZE / 2);
-
-            if (sourceRow >= 0 && sourceRow < SIZE && sourceCol >= 0 && sourceCol < SIZE) {
-                image2[i][j] = image[sourceRow][sourceCol];
-            } else {
-                image2[i][j] = ' ';
-            }
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            image2[i][j] = 255;
         }
     }
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            image3[i][j] = 255;
+        }
+    }
+
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+            image2[(i*x)/SIZE][j]=image[i][j];
+        }
+    }
+
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++)
+        {
+            image3[i+(int)step][j]=image2[i][j];
+        }
+        step-=move;
+    }
+
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+            image[i][j]=image3[i][j];
+        }
+    }
+
+}
+
+
+void skewVertically(){
+
+    double rad,move,step;
+    int x;
+    cout<<"Please enter the angle :";
+    cin>>rad;
+    rad=(rad*22)/(180/7);
+    x=256/(1+(1/tan(rad)));
+    step=256-x;
+    move=step/256;
+
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            image2[i][j] = 255;
+        }
+    }
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            image3[i][j] = 255;
+        }
+    }
+
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+            image2[(i*x)/SIZE][j]=image[i][j];
+        }
+    }
+
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++)
+        {
+            image3[i+(int)step][j]=image2[i][j];
+        }
+        step-=move;
+    }
+
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+            image[i][j]=image3[i][j];
+        }
+    }
+
+}
+
+
+
+/*void grain()
+{
+    for (int i = 0; i < SIZE; i += 2)
+    {
+        for (int j = 0; j < SIZE; j += 2)
+        {
+            image2[i / 1][j / 1] = image[i][j];
+        }
+    }
+
+
 
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
             image[i][j] = image2[i][j];
         }
     }
-
-}
+}*/
