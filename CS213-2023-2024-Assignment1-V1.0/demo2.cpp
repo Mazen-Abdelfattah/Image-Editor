@@ -2,7 +2,7 @@
 // Program: demo2.cpp
 // Author1 and ID : Mazen Abdelfattah - 20230607     //I was having no ID ,so I act like the Smallest ID(as the professor said)
 // Author2 and ID : Malak Khattab - 20210403         //middle ID
-// Author3 and ID : Gehad Shaban - 20220535          //biggest ID
+// Author3 and ID : jehad Shaban - 20220535          //biggest ID
 // Purpose: Demonstrate use of bmplip for handling
 //          bmp colored and grayscale images
 //          Program load a gray image and store in another file
