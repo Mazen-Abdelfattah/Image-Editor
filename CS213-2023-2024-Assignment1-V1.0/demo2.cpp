@@ -171,14 +171,17 @@ void menu() {
             loadImage();
             crop();
             saving_image();
+            break;
         case 'e':
             loadImage();
             skewHorizontally();
             saving_image();
+            break;
         case 'f':
             loadImage();
             skewVertically();
             saving_image();
+            break;
         case 'x':
             exit(0);
             break;
